@@ -2095,7 +2095,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PostDetail'
+  name: 'PostDetail',
+  data: function data() {
+    return {
+      apiUrl: '127.0.0.1:8000/api/posts/',
+      post: {
+        title: '',
+        content: ''
+      }
+    };
+  },
+  methods: {
+    getApi: function getApi() {
+      var _this = this;
+
+      axios.get(this.apiUrl + this.$route.params.slug).then(function (res) {
+        _this.post = res.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getApi();
+    console.log(this.$route.params.slug);
+  }
 });
 
 /***/ }),
@@ -3706,20 +3728,13 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", [_vm._v(" " + _vm._s(_vm.post.title) + " ")]),
+    _vm._v(" "),
+    _c("p", [_vm._v("  " + _vm._s(_vm.post.content) + " ")]),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("Nome Post")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Contenuto")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

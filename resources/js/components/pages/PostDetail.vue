@@ -1,13 +1,36 @@
 <template>
   <div class="container">
-    <h1>Nome Post</h1>
-    <p>Contenuto</p>
+    <h1> {{post.title}} </h1>
+    <p>  {{post.content}} </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PostDetail'
+  name: 'PostDetail',
+  data(){
+    return{
+      apiUrl: '127.0.0.1:8000/api/posts/',
+      post: {
+        title: '',
+        content: '',
+      }
+    }
+  
+  },
+  methods:{
+    getApi(){
+      axios.get(this.apiUrl + this.$route.params.slug)
+        .then(res =>{
+          this.post = res.data;
+        })
+    }
+  },
+  mounted(){
+    this.getApi();
+    console.log(this.$route.params.slug);
+  }
+
 }
 </script>
 
