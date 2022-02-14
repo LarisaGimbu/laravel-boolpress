@@ -44,4 +44,20 @@ class PostController extends Controller
 
         return response()->json(compact('success', 'category', 'error'));
     }
+
+    public function getPostByTag($slug_tag){
+        $tag = Tag::where('slug', $slug_tag)->whith('posts.category')->first();
+        $error = '';
+        $success = true;
+
+        if(!$tag){
+            $success = false;
+            $error = 'Tag inesistente';
+        }elseif($tag && count($tag['posts']) === 0){
+            $success = false;
+            $error = 'Non esistono post per questo tag.';
+        }
+
+        return response()->json(compact('success', 'tag', 'error'));
+    }
 }
