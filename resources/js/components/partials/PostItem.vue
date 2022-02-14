@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h3> <router-link :to="{name: 'detail', slug: post.slug}">{{post.title}}</router-link> </h3>
+    <h3> <router-link :to="{name: 'detail', params:{slug: post.slug}}">{{post.title}}</router-link> </h3>
     <p class="date"> {{formatDate}}</p>
     <p class="text"> {{troncateText}} </p>
   </article>

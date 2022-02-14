@@ -10,7 +10,7 @@ export default {
   name: 'PostDetail',
   data(){
     return{
-      apiUrl: '127.0.0.1:8000/api/posts/',
+      apiUrl: 'http://127.0.0.1:8000/api/posts/',
       post: {
         title: '',
         content: '',
@@ -23,6 +23,7 @@ export default {
       axios.get(this.apiUrl + this.$route.params.slug)
         .then(res =>{
           this.post = res.data;
+          console.log(this.post );
         })
     }
   },

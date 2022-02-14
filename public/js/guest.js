@@ -2098,7 +2098,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'PostDetail',
   data: function data() {
     return {
-      apiUrl: '127.0.0.1:8000/api/posts/',
+      apiUrl: 'http://127.0.0.1:8000/api/posts/',
       post: {
         title: '',
         content: ''
@@ -2111,6 +2111,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(this.apiUrl + this.$route.params.slug).then(function (res) {
         _this.post = res.data;
+        console.log(_this.post);
       });
     }
   },
@@ -3854,7 +3855,9 @@ var render = function () {
       [
         _c(
           "router-link",
-          { attrs: { to: { name: "detail", slug: _vm.post.slug } } },
+          {
+            attrs: { to: { name: "detail", params: { slug: _vm.post.slug } } },
+          },
           [_vm._v(_vm._s(_vm.post.title))]
         ),
       ],
