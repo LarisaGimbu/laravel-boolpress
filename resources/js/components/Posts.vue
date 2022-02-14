@@ -1,32 +1,35 @@
 <template>
 <main class="container">
-  <h2>I miei post:</h2>
-  <PostItem 
-    v-for="post in posts"
-    :key="post.id"
-    :post="post" />
+  <div v-if="posts">
+      <h2>I miei post:</h2>
+    <PostItem 
+      v-for="post in posts"
+      :key="post.id"
+      :post="post" />
 
-  <div>
-    <button
-    @click="getPosts(pagination.current -1)"
-    :disabled="pagination.current === 1">
-      <<
-    </button>
+    <div>
+      <button
+      @click="getPosts(pagination.current -1)"
+      :disabled="pagination.current === 1">
+        <<
+      </button>
 
-    <button
-    v-for="i in pagination.last"
-    :key="i"
-    @click="getPosts(i)"
-    :disabled="pagination.current === i">
-      {{i}}
-    </button>
+      <button
+      v-for="i in pagination.last"
+      :key="i"
+      @click="getPosts(i)"
+      :disabled="pagination.current === i">
+        {{i}}
+      </button>
 
-    <button
-    @click="getPosts(pagination.current +1)"
-    :disabled="pagination.current === pagination.last">
-      >>
-    </button>
+      <button
+      @click="getPosts(pagination.current +1)"
+      :disabled="pagination.current === pagination.last">
+        >>
+      </button>
+    </div>
   </div>
+  <div v-else><h3>LOADING...</h3></div>
 </main>
   
 </template>
@@ -51,6 +54,7 @@ export default {
   },
   methods:{
     getPosts(page = 1){
+      this.posts = null,
       axios.get(this.apiUrl + page)
         .then(res => {
           this.posts = res.data.data;
