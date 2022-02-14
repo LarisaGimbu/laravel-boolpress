@@ -1,6 +1,12 @@
 <template>
   <div class="container">
     <h1> {{post.title}} </h1>
+    <h3 v-if="post.category"> {{post.category.name}} </h3>
+    <div v-if="post.tags">
+      <span class="tag"
+        v-for="(tag, index) in post.tags"
+        :key="`tag${index}`"> {{tag.name}} </span>
+    </div>
     <p>  {{post.content}} </p>
   </div>
 </template>
@@ -35,6 +41,21 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='scss' scoped>
+h1{
+  margin-top: 20px;
+}
+h3{
+  margin: 5px 0;
+  color: rgb(97, 97, 97);
+}
+.tag{
+    display: inline-block;
+    margin: 5px 5px 10px 0;
+    padding: 4px 8px;
+    font-size: 10px;
+    background-color: rgb(85, 136, 138);
+    color: white;
+    border-radius: 6px;
+}
 </style>
