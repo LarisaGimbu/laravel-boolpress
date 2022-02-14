@@ -3,7 +3,9 @@
     <div class="box category">
       <h3>Categorie</h3>
       <div>
-        <span v-for="category in categories"
+        <span 
+        @click="$emit('getPostCategory', category.slug)"
+        v-for="category in categories"
         :key="`category${category.id}`">{{category.name}}</span>
       </div>
     </div>
