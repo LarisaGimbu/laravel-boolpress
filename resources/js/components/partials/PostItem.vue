@@ -1,6 +1,11 @@
 <template>
   <article>
     <h3> <router-link :to="{name: 'detail', params:{slug: post.slug}}">{{post.title}}</router-link> </h3>
+    <p class="category" v-if="post.category"> {{post.category.name}} </p>
+    <div v-if="post.tags">
+      <span v-for="(tag, index) in post.tags"
+        :key="`tag${index}`"> {{tag.name}} </span>
+    </div>
     <p class="date"> {{formatDate}}</p>
     <p class="text"> {{troncateText}} </p>
   </article>
@@ -40,6 +45,19 @@ article{
     &:hover{
       color: rgb(255, 68, 68);
     }
+  }
+  .category{
+    margin: 5px 0;
+    color: rgb(97, 97, 97);
+  }
+  span{
+    display: inline-block;
+    margin: 5px 5px 10px 0;
+    padding: 4px 8px;
+    font-size: 10px;
+    background-color: rgb(85, 136, 138);
+    color: white;
+    border-radius: 6px;
   }
   .date{
     font-size: 0.8rem;
