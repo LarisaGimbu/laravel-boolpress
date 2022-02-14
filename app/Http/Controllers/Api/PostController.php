@@ -28,4 +28,20 @@ class PostController extends Controller
         return response()->json($post);
 
     }
+
+    public function getPostsByCategory($slug_category){
+        $category = Category::where('slug', $slug_category)->with('posts.tags')->first();
+        $error = '';
+        $success = true;
+
+        if(!$category){
+            $success = false;
+            $error = 'Categoria inesistente';
+        }elseif($category && count($category['posts']) === 0){
+            $success = false;
+            $error = 'Non esistono post per questa categoria.';
+        }
+
+        return response()->json(compact('success', 'category', 'error'));
+    }
 }
