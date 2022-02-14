@@ -1,6 +1,7 @@
 <template>
 <main class="container">
-  <div v-if="posts">
+  <div class="container-posts">
+      <div v-if="posts">
       <h2>I miei post:</h2>
     <PostItem 
       v-for="post in posts"
@@ -30,17 +31,22 @@
     </div>
   </div>
   <div v-else><h3>LOADING...</h3></div>
+  </div>
+
+  <Sidebar />
 </main>
   
 </template>
 
 <script>
 import PostItem from './partials/PostItem.vue'
+import Sidebar from './partials/Sidebar.vue'
 
 export default {
   name: 'Posts',
   components:{
-    PostItem
+    PostItem,
+    Sidebar
   },
   data(){
     return{
@@ -72,6 +78,10 @@ export default {
 
 <style lang="scss" scoped>
 main{
+  display: flex;
+  .container-posts{
+    width: 75%;
+  }
   button{
     padding: 5px;
     margin: 5px;
