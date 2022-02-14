@@ -37,7 +37,8 @@
   <Sidebar 
     :tags="tags"
     :categories="categories"
-    @getPostCategory="getPostCategory"/>
+    @getPostCategory="getPostCategory"
+    @getPostTag="getPostTag"/>
 </main>
   
 </template>
@@ -86,12 +87,26 @@ export default {
       axios.get(this.apiUrl + '/postcategory/' + slug_category)
         .then(res =>{
           this.posts = res.data.category.posts;
+
+          if(!res.data.success){
+            this.error_msg = res.data.error;
+            this.success = false;
+          }
         })
 
-      if(!res.data.success){
-        this.error_msg = res.data.error;
-        this.success = false;
-      }
+      
+    },
+    getPostTag(slug_tag){
+      this.reset();
+      axios.get(this.apiUrl + '/posttag/' + slug_tag)
+        .then(res =>{
+          this.posts = res.data.tag.posts;
+          
+          if(!res.data.success){
+            this.error_msg = res.data.error;
+            this.success = false;
+          }
+        })
     },
     reset(){
       this.error_msg = '',

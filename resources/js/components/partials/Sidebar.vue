@@ -12,7 +12,9 @@
     <div class="box tag">
       <h3>Tags</h3>
       <div>
-        <span v-for="tag in tags"
+        <span 
+        @click="$emit('getPostTag', tag.slug)"
+        v-for="tag in tags"
         :key="`tag${tag.id}`">{{tag.name}}</span>
       </div>
     </div>

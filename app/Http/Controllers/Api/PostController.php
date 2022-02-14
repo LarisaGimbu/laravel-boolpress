@@ -46,7 +46,7 @@ class PostController extends Controller
     }
 
     public function getPostByTag($slug_tag){
-        $tag = Tag::where('slug', $slug_tag)->whith('posts.category')->first();
+        $tag = Tag::where('slug', $slug_tag)->with('posts.category')->first();
         $error = '';
         $success = true;
 

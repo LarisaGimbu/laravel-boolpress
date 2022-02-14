@@ -1985,6 +1985,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2028,12 +2029,25 @@ __webpack_require__.r(__webpack_exports__);
       this.reset();
       axios.get(this.apiUrl + '/postcategory/' + slug_category).then(function (res) {
         _this2.posts = res.data.category.posts;
-      });
 
-      if (!res.data.success) {
-        this.error_msg = res.data.error;
-        this.success = false;
-      }
+        if (!res.data.success) {
+          _this2.error_msg = res.data.error;
+          _this2.success = false;
+        }
+      });
+    },
+    getPostTag: function getPostTag(slug_tag) {
+      var _this3 = this;
+
+      this.reset();
+      axios.get(this.apiUrl + '/posttag/' + slug_tag).then(function (res) {
+        _this3.posts = res.data.tag.posts;
+
+        if (!res.data.success) {
+          _this3.error_msg = res.data.error;
+          _this3.success = false;
+        }
+      });
     },
     reset: function reset() {
       this.error_msg = '', this.success = true, this.posts = null;
@@ -2298,6 +2312,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -3812,7 +3828,10 @@ var render = function () {
       _vm._v(" "),
       _c("Sidebar", {
         attrs: { tags: _vm.tags, categories: _vm.categories },
-        on: { getPostCategory: _vm.getPostCategory },
+        on: {
+          getPostCategory: _vm.getPostCategory,
+          getPostTag: _vm.getPostTag,
+        },
       }),
     ],
     1
@@ -4224,7 +4243,18 @@ var render = function () {
       _c(
         "div",
         _vm._l(_vm.tags, function (tag) {
-          return _c("span", { key: "tag" + tag.id }, [_vm._v(_vm._s(tag.name))])
+          return _c(
+            "span",
+            {
+              key: "tag" + tag.id,
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("getPostTag", tag.slug)
+                },
+              },
+            },
+            [_vm._v(_vm._s(tag.name))]
+          )
         }),
         0
       ),
