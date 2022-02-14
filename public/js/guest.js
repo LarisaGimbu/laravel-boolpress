@@ -1981,6 +1981,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1993,7 +1995,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       apiUrl: 'http://127.0.0.1:8000/api/posts?page=',
       posts: null,
-      pagination: {}
+      pagination: {},
+      tags: [],
+      categories: []
     };
   },
   mounted: function mounted() {
@@ -2005,7 +2009,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.posts = null, axios.get(this.apiUrl + page).then(function (res) {
-        _this.posts = res.data.data;
+        _this.posts = res.data.posts.data;
+        _this.categories = res.data.categories;
+        _this.tags = res.data.tags;
         _this.pagination = {
           current: res.data.current_page,
           last: res.data.last_page
@@ -2289,8 +2295,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Sidebar'
+  name: 'Sidebar',
+  props: {
+    tags: Array,
+    categories: Array
+  }
 });
 
 /***/ }),
@@ -2307,7 +2319,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-4ac4d2f8] {\n  display: flex;\n}\nmain .container-posts[data-v-4ac4d2f8] {\n  width: 75%;\n}\nmain button[data-v-4ac4d2f8] {\n  padding: 5px;\n  margin: 5px;\n}", ""]);
+exports.push([module.i, "main[data-v-4ac4d2f8] {\n  display: flex;\n}\nmain .container-posts[data-v-4ac4d2f8] {\n  width: 70%;\n}\nmain button[data-v-4ac4d2f8] {\n  padding: 5px;\n  margin: 5px;\n}", ""]);
 
 // exports
 
@@ -2402,7 +2414,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".sidebar[data-v-438bbc0a] {\n  max-width: 25%;\n}\n.sidebar .box[data-v-438bbc0a] {\n  border: 2px solid grey;\n  border-radius: 10px;\n  padding: 20px 15px;\n  margin-bottom: 20px;\n}\n.sidebar .box h3[data-v-438bbc0a] {\n  margin-bottom: 15px;\n}\n.sidebar .box span[data-v-438bbc0a] {\n  display: inline-block;\n  margin: 5px 5px 10px 0;\n  padding: 4px 8px;\n  color: white;\n  border-radius: 6px;\n  cursor: pointer;\n}\n.sidebar .box.category span[data-v-438bbc0a] {\n  background-color: #769e25;\n}\n.sidebar .box.category span[data-v-438bbc0a]:hover {\n  background-color: #9ec948;\n}\n.sidebar .box.tag span[data-v-438bbc0a] {\n  background-color: #55888a;\n}\n.sidebar .box.tag span[data-v-438bbc0a]:hover {\n  background-color: #71aeaf;\n}", ""]);
+exports.push([module.i, ".sidebar[data-v-438bbc0a] {\n  max-width: 30%;\n  margin-top: 20px;\n}\n.sidebar .box[data-v-438bbc0a] {\n  border: 2px solid grey;\n  border-radius: 10px;\n  padding: 20px 15px;\n  margin-bottom: 20px;\n}\n.sidebar .box h3[data-v-438bbc0a] {\n  margin-bottom: 15px;\n}\n.sidebar .box span[data-v-438bbc0a] {\n  display: inline-block;\n  margin: 5px 5px 10px 0;\n  padding: 4px 8px;\n  color: white;\n  border-radius: 6px;\n  cursor: pointer;\n}\n.sidebar .box.category span[data-v-438bbc0a] {\n  background-color: #769e25;\n}\n.sidebar .box.category span[data-v-438bbc0a]:hover {\n  background-color: #9ec948;\n}\n.sidebar .box.tag span[data-v-438bbc0a] {\n  background-color: #55888a;\n}\n.sidebar .box.tag span[data-v-438bbc0a]:hover {\n  background-color: #71aeaf;\n}", ""]);
 
 // exports
 
@@ -3767,7 +3779,7 @@ var render = function () {
           : _c("div", [_c("h3", [_vm._v("LOADING...")])]),
       ]),
       _vm._v(" "),
-      _c("Sidebar"),
+      _c("Sidebar", { attrs: { tags: _vm.tags, categories: _vm.categories } }),
     ],
     1
   )
@@ -4148,28 +4160,35 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sidebar" }, [
-      _c("div", { staticClass: "box category" }, [
-        _c("h3", [_vm._v("Categorie")]),
-        _vm._v(" "),
-        _c("div", [_c("span", [_vm._v("categoria")])]),
-      ]),
+  return _c("div", { staticClass: "sidebar" }, [
+    _c("div", { staticClass: "box category" }, [
+      _c("h3", [_vm._v("Categorie")]),
       _vm._v(" "),
-      _c("div", { staticClass: "box tag" }, [
-        _c("h3", [_vm._v("Tags")]),
-        _vm._v(" "),
-        _c("div", [_c("span", [_vm._v("tag")])]),
-      ]),
-    ])
-  },
-]
+      _c(
+        "div",
+        _vm._l(_vm.categories, function (category) {
+          return _c("span", { key: "category" + category.id }, [
+            _vm._v(_vm._s(category.name)),
+          ])
+        }),
+        0
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "box tag" }, [
+      _c("h3", [_vm._v("Tags")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        _vm._l(_vm.tags, function (tag) {
+          return _c("span", { key: "tag" + tag.id }, [_vm._v(_vm._s(tag.name))])
+        }),
+        0
+      ),
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

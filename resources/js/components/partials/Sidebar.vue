@@ -3,13 +3,15 @@
     <div class="box category">
       <h3>Categorie</h3>
       <div>
-        <span>categoria</span>
+        <span v-for="category in categories"
+        :key="`category${category.id}`">{{category.name}}</span>
       </div>
     </div>
     <div class="box tag">
       <h3>Tags</h3>
       <div>
-        <span>tag</span>
+        <span v-for="tag in tags"
+        :key="`tag${tag.id}`">{{tag.name}}</span>
       </div>
     </div>
   </div>
@@ -18,12 +20,17 @@
 <script>
 export default {
   name:'Sidebar',
+  props:{
+    tags: Array,
+    categories: Array
+  }
 }
 </script>
 
 <style lang='scss' scoped>
 .sidebar{
-  max-width: 25%;
+  max-width: 30%;
+  margin-top: 20px;
   .box{
     border: 2px solid grey;
     border-radius: 10px;

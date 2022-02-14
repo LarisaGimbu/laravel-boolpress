@@ -33,7 +33,9 @@
   <div v-else><h3>LOADING...</h3></div>
   </div>
 
-  <Sidebar />
+  <Sidebar 
+    :tags="tags"
+    :categories="categories"/>
 </main>
   
 </template>
@@ -52,7 +54,9 @@ export default {
     return{
       apiUrl: 'http://127.0.0.1:8000/api/posts?page=',
       posts: null,
-      pagination: {}
+      pagination: {},
+      tags:[],
+      categories: []
     }
   },
   mounted(){
@@ -63,7 +67,9 @@ export default {
       this.posts = null,
       axios.get(this.apiUrl + page)
         .then(res => {
-          this.posts = res.data.data;
+          this.posts = res.data.posts.data;
+          this.categories = res.data.categories;
+          this.tags = res.data.tags;
 
           this.pagination = {
             current: res.data.current_page,
@@ -80,7 +86,7 @@ export default {
 main{
   display: flex;
   .container-posts{
-    width: 75%;
+    width: 70%;
   }
   button{
     padding: 5px;
