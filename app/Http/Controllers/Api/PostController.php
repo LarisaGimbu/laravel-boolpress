@@ -17,6 +17,10 @@ class PostController extends Controller
     public function show($slug){
         $post = Post::where('slug', $slug)->first();
 
+        if(!$post){
+            $post = ['title'=>'Post non trovato', 'content' => ''];
+        }
+
         return response()->json($post);
 
     }
