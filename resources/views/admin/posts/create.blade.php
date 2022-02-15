@@ -89,8 +89,9 @@
           </span>
         @endforeach
 
-        <div>
-          <input type="file" name="cover">
+        <div class="mt-3">
+          <label for="cover">Inserisci un'immagine:</label>
+          <input type="file" name="cover" id="cover" class="form-control">
         </div>
       </div>
 

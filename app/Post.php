@@ -19,7 +19,9 @@ class Post extends Model
         'title',
         'content',
         'slug',
-        'category_id'
+        'category_id',
+        'cover',
+        'cover_original_name'
     ];
 
     public static function generateSlug($title){
