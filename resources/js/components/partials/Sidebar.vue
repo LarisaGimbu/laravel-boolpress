@@ -18,6 +18,9 @@
         :key="`tag${tag.id}`">{{tag.name}}</span>
       </div>
     </div>
+
+    <button class="reset"
+    @click="$emit('getAllPosts')">Reset</button>
   </div>
 </template>
 
@@ -66,6 +69,20 @@ export default {
           background-color: rgb(113, 174, 175);
         }
       }
+    }
+  }
+  .reset{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 5px 7px;
+    background-color: rgb(85, 85, 85);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    &:hover{
+      background-color:  rgb(126, 126, 126);
     }
   }
 }

@@ -1986,6 +1986,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2345,6 +2346,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Sidebar',
   props: {
@@ -2462,7 +2466,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".sidebar[data-v-438bbc0a] {\n  max-width: 30%;\n  margin-top: 20px;\n}\n.sidebar .box[data-v-438bbc0a] {\n  border: 2px solid grey;\n  border-radius: 10px;\n  padding: 20px 15px;\n  margin-bottom: 20px;\n}\n.sidebar .box h3[data-v-438bbc0a] {\n  margin-bottom: 15px;\n}\n.sidebar .box span[data-v-438bbc0a] {\n  display: inline-block;\n  margin: 5px 5px 10px 0;\n  padding: 4px 8px;\n  color: white;\n  border-radius: 6px;\n  cursor: pointer;\n}\n.sidebar .box.category span[data-v-438bbc0a] {\n  background-color: #769e25;\n}\n.sidebar .box.category span[data-v-438bbc0a]:hover {\n  background-color: #9ec948;\n}\n.sidebar .box.tag span[data-v-438bbc0a] {\n  background-color: #55888a;\n}\n.sidebar .box.tag span[data-v-438bbc0a]:hover {\n  background-color: #71aeaf;\n}", ""]);
+exports.push([module.i, ".sidebar[data-v-438bbc0a] {\n  max-width: 30%;\n  margin-top: 20px;\n}\n.sidebar .box[data-v-438bbc0a] {\n  border: 2px solid grey;\n  border-radius: 10px;\n  padding: 20px 15px;\n  margin-bottom: 20px;\n}\n.sidebar .box h3[data-v-438bbc0a] {\n  margin-bottom: 15px;\n}\n.sidebar .box span[data-v-438bbc0a] {\n  display: inline-block;\n  margin: 5px 5px 10px 0;\n  padding: 4px 8px;\n  color: white;\n  border-radius: 6px;\n  cursor: pointer;\n}\n.sidebar .box.category span[data-v-438bbc0a] {\n  background-color: #769e25;\n}\n.sidebar .box.category span[data-v-438bbc0a]:hover {\n  background-color: #9ec948;\n}\n.sidebar .box.tag span[data-v-438bbc0a] {\n  background-color: #55888a;\n}\n.sidebar .box.tag span[data-v-438bbc0a]:hover {\n  background-color: #71aeaf;\n}\n.sidebar .reset[data-v-438bbc0a] {\n  position: relative;\n  left: 50%;\n  transform: translate(-50%);\n  padding: 5px 7px;\n  background-color: #555555;\n  color: white;\n  border-radius: 5px;\n  border: none;\n  cursor: pointer;\n}\n.sidebar .reset[data-v-438bbc0a]:hover {\n  background-color: #7e7e7e;\n}", ""]);
 
 // exports
 
@@ -3854,6 +3858,7 @@ var render = function () {
         on: {
           getPostCategory: _vm.getPostCategory,
           getPostTag: _vm.getPostTag,
+          getAllPosts: _vm.getPosts,
         },
       }),
     ],
@@ -4282,6 +4287,19 @@ var render = function () {
         0
       ),
     ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "reset",
+        on: {
+          click: function ($event) {
+            return _vm.$emit("getAllPosts")
+          },
+        },
+      },
+      [_vm._v("Reset")]
+    ),
   ])
 }
 var staticRenderFns = []

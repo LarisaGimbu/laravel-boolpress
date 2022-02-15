@@ -38,7 +38,8 @@
     :tags="tags"
     :categories="categories"
     @getPostCategory="getPostCategory"
-    @getPostTag="getPostTag"/>
+    @getPostTag="getPostTag"
+    @getAllPosts="getPosts"/>
 </main>
   
 </template>
