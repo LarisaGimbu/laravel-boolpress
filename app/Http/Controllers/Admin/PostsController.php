@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -48,6 +49,13 @@ class PostsController extends Controller
     {
         $request->validate($this->validationData(), $this->validationError());
         $data = $request->all();
+
+        if(array_key_exists('cover', $data)){
+            $data['cover_original_name'] = $request->file('cover')->getClientOriginalName();
+            $image_path = Storage::put('uploads', $data['cover']);
+            $data['cover'] = $image_path;
+        }
+
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->slug = Post::generateSlug($new_post->title);
@@ -129,6 +137,7 @@ class PostsController extends Controller
         return [
             'title'=>"required|max:50|min:2",
             'content'=>"required|min:5",
+            'cover'=>"nullable|image|max:50"
         ];
     }
 
@@ -138,7 +147,9 @@ class PostsController extends Controller
             'title.max'=> "Il titolo può avere massimo :max caratteri",
             'title.min'=> "Il titolo deve avere al minimo :min caratteri",
             'content.required'=> "Il contenuto è obbligatorio",
-            'content.min'=> "Il contenuto deve avere al meno :min caratteri"
+            'content.min'=> "Il contenuto deve avere al meno :min caratteri",
+            'cover.image'=>"Il file deve essere un'immagine",
+            'cover.max'=>"Il file non può avere più di :max caratteri"
         ];
     }
 }
