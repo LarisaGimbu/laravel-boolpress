@@ -14,7 +14,7 @@
       </div>
     @endif
 
-    <form action=" {{route('admin.posts.store')}} " method="POST">
+    <form action=" {{route('admin.posts.store')}} " method="POST" enctype="multipart/form-data">
       @csrf
       @method('POST')
       <div class="mb-3">
@@ -88,6 +88,10 @@
             </label>
           </span>
         @endforeach
+
+        <div>
+          <input type="file" name="cover">
+        </div>
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
