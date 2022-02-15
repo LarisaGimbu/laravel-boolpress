@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::with(['category', 'tags'])->paginate(5);
+        $posts = Post::with(['category', 'tags'])->paginate(3);
         $tags = Tag::all();
         $categories = Category::all();
 

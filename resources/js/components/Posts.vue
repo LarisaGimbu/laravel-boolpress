@@ -2,13 +2,13 @@
 <main class="container">
   <div v-if="success" class="container-posts">
     <div v-if="posts">
-      <h2>I miei post:</h2>
+      <h2> {{title}} </h2>
       <PostItem 
         v-for="post in posts"
         :key="post.id"
         :post="post" />
 
-      <div>
+      <div v-if="globalPosts">
         <button
         @click="getPosts(pagination.current -1)"
         :disabled="pagination.current === 1">
@@ -61,7 +61,9 @@ export default {
       tags:[],
       categories: [],
       success: true,
-      error_msg: ''
+      error_msg: '',
+      title: 'I miei post:',
+      globalPosts: true
     }
   },
   mounted(){
@@ -77,8 +79,8 @@ export default {
           this.tags = res.data.tags;
 
           this.pagination = {
-            current: res.data.current_page,
-            last: res.data.last_page
+            current: res.data.posts.current_page,
+            last: res.data.posts.last_page
           }
         })   
     },
@@ -87,6 +89,8 @@ export default {
       axios.get(this.apiUrl + '/postcategory/' + slug_category)
         .then(res =>{
           this.posts = res.data.category.posts;
+          this.title = 'I miei post per la categoria: ' + res.data.category.name;
+          this.globalPosts = false;
 
           if(!res.data.success){
             this.error_msg = res.data.error;
@@ -101,6 +105,8 @@ export default {
       axios.get(this.apiUrl + '/posttag/' + slug_tag)
         .then(res =>{
           this.posts = res.data.tag.posts;
+          this.title = 'I miei post con il tag: ' + res.data.tag.name;
+          this.globalPosts = false;
           
           if(!res.data.success){
             this.error_msg = res.data.error;
@@ -109,9 +115,11 @@ export default {
         })
     },
     reset(){
-      this.error_msg = '',
-      this.success = true,
+      this.error_msg = '';
+      this.success = true;
       this.posts = null;
+      this.title = 'I miei post:';
+      this.globalPosts = true;
     }
   }
 }
@@ -122,10 +130,13 @@ main{
   display: flex;
   .container-posts{
     width: 70%;
+    h2{
+      margin-top: 15px;
+    }
   }
   button{
-    padding: 5px;
-    margin: 5px;
+    padding: 3px 5px;
+    margin: 0 5px 50px 0;
   }
 }
 </style>

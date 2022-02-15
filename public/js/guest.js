@@ -2002,7 +2002,9 @@ __webpack_require__.r(__webpack_exports__);
       tags: [],
       categories: [],
       success: true,
-      error_msg: ''
+      error_msg: '',
+      title: 'I miei post:',
+      globalPosts: true
     };
   },
   mounted: function mounted() {
@@ -2018,8 +2020,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.categories = res.data.categories;
         _this.tags = res.data.tags;
         _this.pagination = {
-          current: res.data.current_page,
-          last: res.data.last_page
+          current: res.data.posts.current_page,
+          last: res.data.posts.last_page
         };
       });
     },
@@ -2029,6 +2031,8 @@ __webpack_require__.r(__webpack_exports__);
       this.reset();
       axios.get(this.apiUrl + '/postcategory/' + slug_category).then(function (res) {
         _this2.posts = res.data.category.posts;
+        _this2.title = 'I miei post per la categoria: ' + res.data.category.name;
+        _this2.globalPosts = false;
 
         if (!res.data.success) {
           _this2.error_msg = res.data.error;
@@ -2042,6 +2046,8 @@ __webpack_require__.r(__webpack_exports__);
       this.reset();
       axios.get(this.apiUrl + '/posttag/' + slug_tag).then(function (res) {
         _this3.posts = res.data.tag.posts;
+        _this3.title = 'I miei post con il tag: ' + res.data.tag.name;
+        _this3.globalPosts = false;
 
         if (!res.data.success) {
           _this3.error_msg = res.data.error;
@@ -2050,7 +2056,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     reset: function reset() {
-      this.error_msg = '', this.success = true, this.posts = null;
+      this.error_msg = '';
+      this.success = true;
+      this.posts = null;
+      this.title = 'I miei post:';
+      this.globalPosts = true;
     }
   }
 });
@@ -2357,7 +2367,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-4ac4d2f8] {\n  display: flex;\n}\nmain .container-posts[data-v-4ac4d2f8] {\n  width: 70%;\n}\nmain button[data-v-4ac4d2f8] {\n  padding: 5px;\n  margin: 5px;\n}", ""]);
+exports.push([module.i, "main[data-v-4ac4d2f8] {\n  display: flex;\n}\nmain .container-posts[data-v-4ac4d2f8] {\n  width: 70%;\n}\nmain .container-posts h2[data-v-4ac4d2f8] {\n  margin-top: 15px;\n}\nmain button[data-v-4ac4d2f8] {\n  padding: 3px 5px;\n  margin: 0 5px 50px 0;\n}", ""]);
 
 // exports
 
@@ -3756,7 +3766,7 @@ var render = function () {
               ? _c(
                   "div",
                   [
-                    _c("h2", [_vm._v("I miei post:")]),
+                    _c("h2", [_vm._v(" " + _vm._s(_vm.title) + " ")]),
                     _vm._v(" "),
                     _vm._l(_vm.posts, function (post) {
                       return _c("PostItem", {
@@ -3765,60 +3775,73 @@ var render = function () {
                       })
                     }),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _c(
-                          "button",
-                          {
-                            attrs: { disabled: _vm.pagination.current === 1 },
-                            on: {
-                              click: function ($event) {
-                                return _vm.getPosts(_vm.pagination.current - 1)
-                              },
-                            },
-                          },
-                          [_vm._v("\r\n          <<\r\n        ")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.pagination.last, function (i) {
-                          return _c(
-                            "button",
-                            {
-                              key: i,
-                              attrs: { disabled: _vm.pagination.current === i },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.getPosts(i)
+                    _vm.globalPosts
+                      ? _c(
+                          "div",
+                          [
+                            _c(
+                              "button",
+                              {
+                                attrs: {
+                                  disabled: _vm.pagination.current === 1,
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.getPosts(
+                                      _vm.pagination.current - 1
+                                    )
+                                  },
                                 },
                               },
-                            },
-                            [
-                              _vm._v(
-                                "\r\n          " + _vm._s(i) + "\r\n        "
-                              ),
-                            ]
-                          )
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            attrs: {
-                              disabled:
-                                _vm.pagination.current === _vm.pagination.last,
-                            },
-                            on: {
-                              click: function ($event) {
-                                return _vm.getPosts(_vm.pagination.current + 1)
+                              [_vm._v("\r\n          <<\r\n        ")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.pagination.last, function (i) {
+                              return _c(
+                                "button",
+                                {
+                                  key: i,
+                                  attrs: {
+                                    disabled: _vm.pagination.current === i,
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.getPosts(i)
+                                    },
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\r\n          " +
+                                      _vm._s(i) +
+                                      "\r\n        "
+                                  ),
+                                ]
+                              )
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                attrs: {
+                                  disabled:
+                                    _vm.pagination.current ===
+                                    _vm.pagination.last,
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.getPosts(
+                                      _vm.pagination.current + 1
+                                    )
+                                  },
+                                },
                               },
-                            },
-                          },
-                          [_vm._v("\r\n          >>\r\n        ")]
-                        ),
-                      ],
-                      2
-                    ),
+                              [_vm._v("\r\n          >>\r\n        ")]
+                            ),
+                          ],
+                          2
+                        )
+                      : _vm._e(),
                   ],
                   2
                 )
