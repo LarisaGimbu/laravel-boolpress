@@ -117,6 +117,16 @@ class PostsController extends Controller
             $post->tags()->detach();
         }
 
+        if(array_key_exists('cover', $data)){
+            if($post->cover){
+                Storage::delete($post->cover);
+            }
+
+            $data['cover_original_name'] = $request->file('cover')->getClientOriginalName();
+            $image_path = Storage::put('uploads', $data['cover']);
+            $data['cover'] = $image_path;
+        }
+
         return redirect()->route('admin.posts.show', $post);
     }
 
