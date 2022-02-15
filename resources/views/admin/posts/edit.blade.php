@@ -14,7 +14,7 @@
       </div>
     @endif
 
-    <form action=" {{route('admin.posts.update', $post)}} " method="POST">
+    <form action=" {{route('admin.posts.update', $post)}} " method="POST" enctype="multipart/form-data">
       @csrf
       @method('PUT')
       <div class="mb-3">
@@ -93,6 +93,22 @@
             </label>
           </span>
         @endforeach
+      </div>
+
+      <div class="mt-3 mb-3">
+        @if ($post->cover)
+        <div>
+          <img src=" {{asset('storage/' . $post->cover)}} " alt=" {{$post->title}} ">
+        </div>
+        @endif
+        
+        <label for="cover">Inserisci un'immagine:</label>
+        <input type="file" name="cover" id="cover" class="form-control 
+        @error('cover') is-invalid @enderror">
+
+        @error('cover')
+          <p> {{$message}} </p>
+        @enderror
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
