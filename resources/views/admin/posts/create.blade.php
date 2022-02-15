@@ -91,7 +91,12 @@
 
         <div class="mt-3">
           <label for="cover">Inserisci un'immagine:</label>
-          <input type="file" name="cover" id="cover" class="form-control">
+          <input type="file" name="cover" id="cover" class="form-control 
+          @error('cover') is-invalid @enderror">
+
+          @error('cover')
+            <p> {{$message}} </p>
+          @enderror
         </div>
       </div>
 
