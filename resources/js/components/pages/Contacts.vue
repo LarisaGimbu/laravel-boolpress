@@ -1,19 +1,23 @@
 <template>
   <div class="container">
     <h1>Contacts</h1>
+
     <div class="form">
       <form @submit.prevent="sendForm">
         <div class="field">
           <label for="name">Nome</label>
           <input type="text" id="name" v-model="name">
+          <p class="errors" v-if="errors.name"> {{errors.name[0]}} </p>
         </div>
         <div class="field">
           <label for="email">Email</label>
           <input type="email" id="email" v-model="email">
+          <p class="errors" v-if="errors.name"> {{errors.email[0]}} </p>
         </div>
         <div class="field">
           <label for="message">Messaggio</label>
           <textarea name="" id="message" v-model="message" cols="30" rows="10"></textarea>
+          <p class="errors" v-if="errors.name"> {{errors.message[0]}} </p>
         </div>
         <button class="invia">Invia</button>
       </form>
@@ -28,12 +32,23 @@ export default {
     return{
       name: '',
       email: '',
-      message: ''
+      message: '',
+      errors: {}
     }
   },
   methods:{
     sendForm(){
-      console.log('inviato');
+      axios.post('api/contacts', {
+        'name' : this.name,
+        'email' : this.email,
+        'message' : this.message
+      }).then(res =>{
+        if(!res.data.success){
+          this.errors = res.data.errors;
+        }else{
+          this.errors = {};
+        }
+      })
     }
   }
 }
@@ -45,6 +60,10 @@ export default {
     label{
       display: block;
       padding: 10px 0;
+    }
+    .errors{
+      color: red;
+      font-size: 10px;
     }
   }
   .invia{

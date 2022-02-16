@@ -26,10 +26,10 @@ Route::get('prova', function(){
 // Route::get('posts', 'Api\PostController@index');
 
 Route::namespace('Api')
-    ->prefix('posts')
     ->group(function(){
-        Route::get('/', 'PostController@index');
-        Route::get('{slug}', 'PostController@show');
-        Route::get('postcategory/{slug}', 'PostController@getPostsByCategory');
-        Route::get('posttag/{slug}', 'PostController@getPostByTag');
+        Route::get('/posts', 'PostController@index');
+        Route::get('posts/{slug}', 'PostController@show');
+        Route::get('posts/postcategory/{slug}', 'PostController@getPostsByCategory');
+        Route::get('posts/posttag/{slug}', 'PostController@getPostByTag');
+        Route::post('contacts/', 'ContactController@store');
     });

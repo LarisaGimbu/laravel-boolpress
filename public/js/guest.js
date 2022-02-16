@@ -2122,18 +2122,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
     return {
       name: '',
       email: '',
-      message: ''
+      message: '',
+      errors: {}
     };
   },
   methods: {
     sendForm: function sendForm() {
-      console.log('inviato');
+      var _this = this;
+
+      axios.post('api/contacts', {
+        'name': this.name,
+        'email': this.email,
+        'message': this.message
+      }).then(function (res) {
+        if (!res.data.success) {
+          _this.errors = res.data.errors;
+        } else {
+          _this.errors = {};
+        }
+      });
     }
   }
 });
@@ -2418,7 +2435,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form .field label[data-v-16000269] {\n  display: block;\n  padding: 10px 0;\n}\n.form .invia[data-v-16000269] {\n  padding: 5px 7px;\n  margin: 10px 0;\n}", ""]);
+exports.push([module.i, ".form .field label[data-v-16000269] {\n  display: block;\n  padding: 10px 0;\n}\n.form .field .errors[data-v-16000269] {\n  color: red;\n  font-size: 10px;\n}\n.form .invia[data-v-16000269] {\n  padding: 5px 7px;\n  margin: 10px 0;\n}", ""]);
 
 // exports
 
@@ -4041,6 +4058,12 @@ var render = function () {
                 },
               },
             }),
+            _vm._v(" "),
+            _vm.errors.name
+              ? _c("p", { staticClass: "errors" }, [
+                  _vm._v(" " + _vm._s(_vm.errors.name[0]) + " "),
+                ])
+              : _vm._e(),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
@@ -4066,6 +4089,12 @@ var render = function () {
                 },
               },
             }),
+            _vm._v(" "),
+            _vm.errors.name
+              ? _c("p", { staticClass: "errors" }, [
+                  _vm._v(" " + _vm._s(_vm.errors.email[0]) + " "),
+                ])
+              : _vm._e(),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
@@ -4091,6 +4120,12 @@ var render = function () {
                 },
               },
             }),
+            _vm._v(" "),
+            _vm.errors.name
+              ? _c("p", { staticClass: "errors" }, [
+                  _vm._v(" " + _vm._s(_vm.errors.message[0]) + " "),
+                ])
+              : _vm._e(),
           ]),
           _vm._v(" "),
           _c("button", { staticClass: "invia" }, [_vm._v("Invia")]),
