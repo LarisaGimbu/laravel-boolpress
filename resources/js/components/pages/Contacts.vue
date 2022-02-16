@@ -2,18 +2,18 @@
   <div class="container">
     <h1>Contacts</h1>
     <div class="form">
-      <form action="">
+      <form @submit.prevent="sendForm">
         <div class="field">
-          <label for="">Nome</label>
-          <input type="text">
+          <label for="name">Nome</label>
+          <input type="text" id="name" v-model="name">
         </div>
         <div class="field">
-          <label for="">Email</label>
-          <input type="email">
+          <label for="email">Email</label>
+          <input type="email" id="email" v-model="email">
         </div>
         <div class="field">
-          <label for="">Messaggio</label>
-          <textarea name="" id="" cols="30" rows="10"></textarea>
+          <label for="message">Messaggio</label>
+          <textarea name="" id="message" v-model="message" cols="30" rows="10"></textarea>
         </div>
         <button class="invia">Invia</button>
       </form>
@@ -23,7 +23,19 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  data(){
+    return{
+      name: '',
+      email: '',
+      message: ''
+    }
+  },
+  methods:{
+    sendForm(){
+      console.log('inviato');
+    }
+  }
 }
 </script>
 

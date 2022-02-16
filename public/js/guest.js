@@ -2123,7 +2123,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Home'
+  name: 'Home',
+  data: function data() {
+    return {
+      name: '',
+      email: '',
+      message: ''
+    };
+  },
+  methods: {
+    sendForm: function sendForm() {
+      console.log('inviato');
+    }
+  }
 });
 
 /***/ }),
@@ -3991,44 +4003,103 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("Contacts")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form" }, [
-        _c("form", { attrs: { action: "" } }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", [_vm._v("Contacts")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form" }, [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function ($event) {
+              $event.preventDefault()
+              return _vm.sendForm.apply(null, arguments)
+            },
+          },
+        },
+        [
           _c("div", { staticClass: "field" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Nome")]),
+            _c("label", { attrs: { for: "name" } }, [_vm._v("Nome")]),
             _vm._v(" "),
-            _c("input", { attrs: { type: "text" } }),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name",
+                },
+              ],
+              attrs: { type: "text", id: "name" },
+              domProps: { value: _vm.name },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                },
+              },
+            }),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Email")]),
+            _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
             _vm._v(" "),
-            _c("input", { attrs: { type: "email" } }),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.email,
+                  expression: "email",
+                },
+              ],
+              attrs: { type: "email", id: "email" },
+              domProps: { value: _vm.email },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.email = $event.target.value
+                },
+              },
+            }),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Messaggio")]),
+            _c("label", { attrs: { for: "message" } }, [_vm._v("Messaggio")]),
             _vm._v(" "),
             _c("textarea", {
-              attrs: { name: "", id: "", cols: "30", rows: "10" },
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.message,
+                  expression: "message",
+                },
+              ],
+              attrs: { name: "", id: "message", cols: "30", rows: "10" },
+              domProps: { value: _vm.message },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.message = $event.target.value
+                },
+              },
             }),
           ]),
           _vm._v(" "),
           _c("button", { staticClass: "invia" }, [_vm._v("Invia")]),
-        ]),
-      ]),
-    ])
-  },
-]
+        ]
+      ),
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
