@@ -48,6 +48,9 @@ article{
   border: 1px solid grey;
   border-radius: 5px;
   margin: 20px 0;
+  img{
+    width: 200px;
+  }
   a{
     text-decoration: none;
     color: black;

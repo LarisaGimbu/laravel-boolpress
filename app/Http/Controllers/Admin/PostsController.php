@@ -108,14 +108,6 @@ class PostsController extends Controller
     {
         $request->validate($this->validationData(), $this->validationError());
         $data = $request->all();
-        $data['slug'] = Post::generateSlug($data['title']);
-        $post->update($data);
-
-        if(array_key_exists('tags', $data)){
-            $post->tags()->sync($data['tags']);
-        }else{
-            $post->tags()->detach();
-        }
 
         if(array_key_exists('cover', $data)){
             if($post->cover){
@@ -124,7 +116,16 @@ class PostsController extends Controller
 
             $data['cover_original_name'] = $request->file('cover')->getClientOriginalName();
             $image_path = Storage::put('uploads', $data['cover']);
-            $data['cover'] = $image_path;
+            $data['cover'] = $image_path;            
+        }
+                
+        $data['slug'] = Post::generateSlug($data['title']);
+        $post->update($data);
+
+        if(array_key_exists('tags', $data)){
+            $post->tags()->sync($data['tags']);
+        }else{
+            $post->tags()->detach();
         }
 
         return redirect()->route('admin.posts.show', $post);
