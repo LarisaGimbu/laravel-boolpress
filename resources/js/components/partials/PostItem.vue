@@ -1,13 +1,18 @@
 <template>
   <article>
-    <h3> <router-link :to="{name: 'detail', params:{slug: post.slug}}">{{post.title}}</router-link> </h3>
-    <p class="category" v-if="post.category"> {{post.category.name}} </p>
-    <div v-if="post.tags">
-      <span v-for="(tag, index) in post.tags"
-        :key="`tag${index}`"> {{tag.name}} </span>
+    <div>
+      <img :src="post.cover" :alt="post.title">
     </div>
-    <p class="date"> {{formatDate}}</p>
-    <p class="text"> {{troncateText}} </p>
+    <div>
+      <h3> <router-link :to="{name: 'detail', params:{slug: post.slug}}">{{post.title}}</router-link> </h3>
+      <p class="category" v-if="post.category"> {{post.category.name}} </p>
+      <div v-if="post.tags">
+        <span v-for="(tag, index) in post.tags"
+          :key="`tag${index}`"> {{tag.name}} </span>
+      </div>
+      <p class="date"> {{formatDate}}</p>
+      <p class="text"> {{troncateText}} </p>
+    </div>
   </article>
 </template>
 
@@ -38,6 +43,10 @@ export default {
 
 <style lang="scss" scoped>
 article{
+  display: flex;
+  width: 90%;
+  border: 1px solid grey;
+  border-radius: 5px;
   margin: 20px 0;
   a{
     text-decoration: none;

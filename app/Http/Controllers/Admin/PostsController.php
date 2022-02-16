@@ -140,6 +140,10 @@ class PostsController extends Controller
     {
         $post->delete();
 
+        if($post->cover){
+            Storage::delete($post->cover);
+        }
+
         return redirect()->route('admin.posts.index');
     }
 
@@ -147,7 +151,7 @@ class PostsController extends Controller
         return [
             'title'=>"required|max:50|min:2",
             'content'=>"required|min:5",
-            'cover'=>"nullable|image|max:50"
+            'cover'=>"nullable|image"
         ];
     }
 
@@ -159,7 +163,6 @@ class PostsController extends Controller
             'content.required'=> "Il contenuto è obbligatorio",
             'content.min'=> "Il contenuto deve avere al meno :min caratteri",
             'cover.image'=>"Il file deve essere un'immagine",
-            'cover.max'=>"Il file non può avere più di :max caratteri"
         ];
     }
 }

@@ -21,7 +21,7 @@
     </div>
 
     @if ($post->cover)
-        <img src=" {{asset('storage/' . $post->cover)}} " alt=" {{$post->title}} ">
+        <img width="300px" src=" {{asset('storage/' . $post->cover)}} " alt=" {{$post->title}} ">
         <p> {{$post->cover_original_name}} </p>
     @endif
 

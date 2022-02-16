@@ -2291,6 +2291,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostItem',
   props: {
@@ -2447,7 +2452,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "article[data-v-49c43f95] {\n  margin: 20px 0;\n}\narticle a[data-v-49c43f95] {\n  text-decoration: none;\n  color: black;\n}\narticle a[data-v-49c43f95]:hover {\n  color: #ff4444;\n}\narticle .category[data-v-49c43f95] {\n  margin: 5px 0;\n  color: #616161;\n}\narticle span[data-v-49c43f95] {\n  display: inline-block;\n  margin: 5px 5px 10px 0;\n  padding: 4px 8px;\n  font-size: 10px;\n  background-color: #55888a;\n  color: white;\n  border-radius: 6px;\n}\narticle .date[data-v-49c43f95] {\n  font-size: 0.8rem;\n  font-style: italic;\n}\narticle .text[data-v-49c43f95] {\n  padding: 5px 0;\n}", ""]);
+exports.push([module.i, "article[data-v-49c43f95] {\n  display: flex;\n  width: 90%;\n  border: 1px solid grey;\n  border-radius: 5px;\n  margin: 20px 0;\n}\narticle a[data-v-49c43f95] {\n  text-decoration: none;\n  color: black;\n}\narticle a[data-v-49c43f95]:hover {\n  color: #ff4444;\n}\narticle .category[data-v-49c43f95] {\n  margin: 5px 0;\n  color: #616161;\n}\narticle span[data-v-49c43f95] {\n  display: inline-block;\n  margin: 5px 5px 10px 0;\n  padding: 4px 8px;\n  font-size: 10px;\n  background-color: #55888a;\n  color: white;\n  border-radius: 6px;\n}\narticle .date[data-v-49c43f95] {\n  font-size: 0.8rem;\n  font-style: italic;\n}\narticle .text[data-v-49c43f95] {\n  padding: 5px 0;\n}", ""]);
 
 // exports
 
@@ -4180,42 +4185,50 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("article", [
-    _c(
-      "h3",
-      [
-        _c(
-          "router-link",
-          {
-            attrs: { to: { name: "detail", params: { slug: _vm.post.slug } } },
-          },
-          [_vm._v(_vm._s(_vm.post.title))]
-        ),
-      ],
-      1
-    ),
+    _c("div", [
+      _c("img", { attrs: { src: _vm.post.cover, alt: _vm.post.title } }),
+    ]),
     _vm._v(" "),
-    _vm.post.category
-      ? _c("p", { staticClass: "category" }, [
-          _vm._v(" " + _vm._s(_vm.post.category.name) + " "),
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.post.tags
-      ? _c(
-          "div",
-          _vm._l(_vm.post.tags, function (tag, index) {
-            return _c("span", { key: "tag" + index }, [
-              _vm._v(" " + _vm._s(tag.name) + " "),
-            ])
-          }),
-          0
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _c("p", { staticClass: "date" }, [_vm._v(" " + _vm._s(_vm.formatDate))]),
-    _vm._v(" "),
-    _c("p", { staticClass: "text" }, [
-      _vm._v(" " + _vm._s(_vm.troncateText) + " "),
+    _c("div", [
+      _c(
+        "h3",
+        [
+          _c(
+            "router-link",
+            {
+              attrs: {
+                to: { name: "detail", params: { slug: _vm.post.slug } },
+              },
+            },
+            [_vm._v(_vm._s(_vm.post.title))]
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.post.category
+        ? _c("p", { staticClass: "category" }, [
+            _vm._v(" " + _vm._s(_vm.post.category.name) + " "),
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.post.tags
+        ? _c(
+            "div",
+            _vm._l(_vm.post.tags, function (tag, index) {
+              return _c("span", { key: "tag" + index }, [
+                _vm._v(" " + _vm._s(tag.name) + " "),
+              ])
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("p", { staticClass: "date" }, [_vm._v(" " + _vm._s(_vm.formatDate))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "text" }, [
+        _vm._v(" " + _vm._s(_vm.troncateText) + " "),
+      ]),
     ]),
   ])
 }

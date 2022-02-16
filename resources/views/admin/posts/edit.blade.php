@@ -98,7 +98,7 @@
       <div class="mt-3 mb-3">
         @if ($post->cover)
         <div>
-          <img src=" {{asset('storage/' . $post->cover)}} " alt=" {{$post->title}} ">
+          <img width="300px" src=" {{asset('storage/' . $post->cover)}} " alt=" {{$post->title}} ">
         </div>
         @endif
         
