@@ -2133,18 +2133,22 @@ __webpack_require__.r(__webpack_exports__);
       name: '',
       email: '',
       message: '',
-      errors: {}
+      errors: {},
+      sending: false
     };
   },
   methods: {
     sendForm: function sendForm() {
       var _this = this;
 
+      this.sending = true;
       axios.post('api/contacts', {
         'name': this.name,
         'email': this.email,
         'message': this.message
       }).then(function (res) {
+        _this.sending = false;
+
         if (!res.data.success) {
           _this.errors = res.data.errors;
         } else {
@@ -4128,7 +4132,14 @@ var render = function () {
               : _vm._e(),
           ]),
           _vm._v(" "),
-          _c("button", { staticClass: "invia" }, [_vm._v("Invia")]),
+          _c(
+            "button",
+            {
+              staticClass: "invia",
+              attrs: { type: "submit", disabled: _vm.sending },
+            },
+            [_vm._v(_vm._s(_vm.sending ? "invio in corso" : "Invia"))]
+          ),
         ]
       ),
     ]),

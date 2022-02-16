@@ -19,7 +19,7 @@
           <textarea name="" id="message" v-model="message" cols="30" rows="10"></textarea>
           <p class="errors" v-if="errors.name"> {{errors.message[0]}} </p>
         </div>
-        <button class="invia">Invia</button>
+        <button type="submit" :disabled="sending" class="invia">{{sending ? "invio in corso" : "Invia"}}</button>
       </form>
     </div>
   </div>
@@ -33,16 +33,19 @@ export default {
       name: '',
       email: '',
       message: '',
-      errors: {}
+      errors: {},
+      sending: false
     }
   },
   methods:{
     sendForm(){
+      this.sending = true;
       axios.post('api/contacts', {
         'name' : this.name,
         'email' : this.email,
         'message' : this.message
       }).then(res =>{
+        this.sending = false;
         if(!res.data.success){
           this.errors = res.data.errors;
         }else{
