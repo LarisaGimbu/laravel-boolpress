@@ -2126,6 +2126,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
@@ -2134,7 +2135,8 @@ __webpack_require__.r(__webpack_exports__);
       email: '',
       message: '',
       errors: {},
-      sending: false
+      sending: false,
+      success: false
     };
   },
   methods: {
@@ -2142,6 +2144,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.sending = true;
+      this.success = false;
       axios.post('api/contacts', {
         'name': this.name,
         'email': this.email,
@@ -2153,6 +2156,10 @@ __webpack_require__.r(__webpack_exports__);
           _this.errors = res.data.errors;
         } else {
           _this.errors = {};
+          _this.success = true;
+          _this.name = '';
+          _this.email = '';
+          _this.message = '';
         }
       });
     }
@@ -2439,7 +2446,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form .field label[data-v-16000269] {\n  display: block;\n  padding: 10px 0;\n}\n.form .field .errors[data-v-16000269] {\n  color: red;\n  font-size: 10px;\n}\n.form .invia[data-v-16000269] {\n  padding: 5px 7px;\n  margin: 10px 0;\n}", ""]);
+exports.push([module.i, ".success[data-v-16000269] {\n  color: green;\n}\n.form .field label[data-v-16000269] {\n  display: block;\n  padding: 10px 0;\n}\n.form .field .errors[data-v-16000269] {\n  color: red;\n  font-size: 10px;\n}\n.form .invia[data-v-16000269] {\n  padding: 5px 7px;\n  margin: 10px 0;\n}", ""]);
 
 // exports
 
@@ -4026,6 +4033,12 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("h1", [_vm._v("Contacts")]),
+    _vm._v(" "),
+    _vm.success
+      ? _c("h3", { staticClass: "success" }, [
+          _vm._v("Email inviata correttamente."),
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "form" }, [
       _c(

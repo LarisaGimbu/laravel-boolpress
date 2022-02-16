@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1>Contacts</h1>
+    <h3 class="success" v-if="success">Email inviata correttamente.</h3>
 
     <div class="form">
       <form @submit.prevent="sendForm">
@@ -34,12 +35,14 @@ export default {
       email: '',
       message: '',
       errors: {},
-      sending: false
+      sending: false,
+      success: false
     }
   },
   methods:{
     sendForm(){
       this.sending = true;
+      this.success = false;
       axios.post('api/contacts', {
         'name' : this.name,
         'email' : this.email,
@@ -50,6 +53,10 @@ export default {
           this.errors = res.data.errors;
         }else{
           this.errors = {};
+          this.success = true;
+          this.name = '';
+          this.email = '';
+          this.message = '';
         }
       })
     }
@@ -58,6 +65,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.success{
+  color: green;
+}
 .form{
   .field{
     label{
