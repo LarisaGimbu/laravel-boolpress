@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contact;
 use App\Http\Controllers\Controller;
+use App\Mail\NewContactMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
@@ -31,6 +34,12 @@ class ContactController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+
+        $new_contact = new Contact();
+        $new_contact->fill($data);
+        $new_contact->save();
+
+        Mail::to('info@boolpress.com')->send(new NewContactMail($new_contact));
 
         return response()->json(compact('success'));
     }
